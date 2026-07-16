@@ -8,74 +8,150 @@
     <script src="app.js" defer></script>
   </head>
   <body>
-    <header class="page-header">
-      <!-- TODO: [페이지 헤더] 수강생 구현 #1 -->
+    <!-- 서비스 소개 영역 -->
+    <header class="used-car-page-header">
+      <h1 class="used-car-page-header__title">중고차 목록 관리</h1>
+      <p class="used-car-page-header__description">
+        차량 정보를 등록하고 관리하는 CRUD 실습
+      </p>
     </header>
 
-    <main class="container">
-      <section class="form-card">
-        <h2>차량 정보 입력</h2>
+    <!-- 차량 등록 폼과 목록을 포함하는 메인 레이아웃 -->
+    <main class="used-car-layout">
+      <section class="used-car-panel used-car-panel--form" aria-labelledby="usedCarFormTitle">
+        <h2 id="usedCarFormTitle" class="used-car-panel__title">차량 정보 입력</h2>
 
-        <!-- 차령 정보 입력 폼 -->
-        <form id="carForm" class="car-form">
-          <!-- 제조사 정보 -->
-          <div class="form-row">
-            <!-- TODO: [제조사 목록] 수강생 구현 #2 -->
+        <form id="usedCarForm" class="used-car-form" novalidate>
+          <div class="used-car-form__field">
+            <label for="usedCarMaker">제조사</label>
+            <select id="usedCarMaker" name="maker">
+              <option value="">제조사 선택</option>
+              <option value="현대">현대</option>
+              <option value="기아">기아</option>
+              <option value="제네시스">제네시스</option>
+              <option value="쉐보레">쉐보레</option>
+              <option value="르노">르노</option>
+            </select>
           </div>
 
-          <!-- 모델명 -->
-          <div class="form-row">
-            <!-- TODO: [모델명] 수강생 구현 #3 -->
+          <div class="used-car-form__field">
+            <label for="usedCarModel">모델명</label>
+            <input
+              id="usedCarModel"
+              name="model"
+              type="text"
+              placeholder="예: 쏘나타"
+            />
           </div>
 
-          <!-- 연식 -->
-          <div class="form-row">
-            <!-- TODO: [연식] 수강생 구현 #4 -->
+          <div class="used-car-form__field">
+            <label for="usedCarYear">연식</label>
+            <input
+              id="usedCarYear"
+              name="year"
+              type="number"
+              inputmode="numeric"
+              placeholder="예: 2021"
+            />
           </div>
 
-          <!-- 주행거리 -->
-          <div class="form-row">
-            <!-- TODO: [주행거리(Km)] 수강생 구현 #5 -->
+          <div class="used-car-form__field">
+            <label for="usedCarMileage">주행거리(km)</label>
+            <input
+              id="usedCarMileage"
+              name="mileage"
+              type="number"
+              inputmode="numeric"
+              min="0"
+              placeholder="예: 43000"
+            />
           </div>
 
-          <!-- 가격 -->
-          <div class="form-row">
-            <!-- TODO: [가격(만원)] 수강생 구현 #6 -->
+          <div class="used-car-form__field">
+            <label for="usedCarPrice">가격(만원)</label>
+            <input
+              id="usedCarPrice"
+              name="price"
+              type="number"
+              inputmode="numeric"
+              min="1"
+              placeholder="예: 1850"
+            />
           </div>
 
-          <!-- 연료 -->
-          <div class="form-row">
-            <!-- TODO: [연료 목록] 수강생 구현 #7 -->
+          <div class="used-car-form__field">
+            <label for="usedCarFuel">연료</label>
+            <select id="usedCarFuel" name="fuel">
+              <option value="">연료 선택</option>
+              <option value="가솔린">가솔린</option>
+              <option value="디젤">디젤</option>
+              <option value="LPG">LPG</option>
+              <option value="하이브리드">하이브리드</option>
+              <option value="전기">전기</option>
+            </select>
           </div>
 
-          <!-- 판매 상태 -->
-          <div class="form-row">
-            <!-- TODO: [판매 상태 목록] 수강생 구현 #8 -->
+          <div class="used-car-form__field">
+            <label for="usedCarStatus">판매 상태</label>
+            <select id="usedCarStatus" name="status">
+              <option value="판매중">판매중</option>
+              <option value="예약중">예약중</option>
+              <option value="판매완료">판매완료</option>
+            </select>
           </div>
-          <!-- 등록 / 취소 버튼 -->
-          <div class="button-area">
-            <!-- TODO: [등록/취소 버튼] 수강생 구현 #9 -->
+
+          <div class="used-car-form__actions">
+            <button
+              id="usedCarSubmitButton"
+              class="used-car-button used-car-button--primary"
+              type="submit"
+            >
+              등록
+            </button>
+            <button
+              id="usedCarCancelEditButton"
+              class="used-car-button used-car-button--secondary"
+              type="button"
+              hidden
+            >
+              수정 취소
+            </button>
           </div>
         </form>
       </section>
 
-      <!-- 차량 목록 -->
-      <section class="list-card">
-        <div class="list-header">
-          <h2>차량 목록</h2>
-          <p id="countText">전체 0대 / 표시 0대</p>
+      <section class="used-car-panel used-car-panel--list" aria-labelledby="usedCarListTitle">
+        <div class="used-car-list-header">
+          <h2 id="usedCarListTitle" class="used-car-panel__title">차량 목록</h2>
+          <p id="usedCarCountText" class="used-car-list-header__count">
+            전체 0대 / 표시 0대
+          </p>
         </div>
 
-        <!-- 차량 검색 -->
-        <div class="search-area">
-          <!-- TODO: [차량 검색 및 필터 목록] 수강생 구현 #10 -->
+        <div class="used-car-search">
+          <label class="visually-hidden" for="usedCarSearchInput">차량 검색</label>
+          <input
+            id="usedCarSearchInput"
+            type="search"
+            placeholder="제조사 또는 모델명 검색"
+          />
+
+          <label class="visually-hidden" for="usedCarStatusFilter">
+            판매 상태 필터
+          </label>
+          <select id="usedCarStatusFilter">
+            <option value="전체">전체</option>
+            <option value="판매중">판매중</option>
+            <option value="예약중">예약중</option>
+            <option value="판매완료">판매완료</option>
+          </select>
         </div>
 
-        <!-- empty 메시지 -->
-        <p id="emptyMessage" class="empty-message">등록된 차량이 없습니다.</p>
+        <p id="usedCarEmptyMessage" class="used-car-empty-message">
+          등록된 차량이 없습니다.
+        </p>
 
-        <!-- 차량 목룍 -->
-        <div id="carList" class="car-list"></div>
+        <div id="usedCarList" class="used-car-grid"></div>
       </section>
     </main>
   </body>
