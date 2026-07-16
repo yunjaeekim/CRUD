@@ -17,8 +17,14 @@ const usedCarSubmitButton = document.querySelector('#usedCarSubmitButton')
 const usedCarCancelEditButton = document.querySelector(
   '#usedCarCancelEditButton',
 )
-const usedCarSearchInput = document.querySelector('#usedCarSearchInput')
-const usedCarStatusFilter = document.querySelector('#usedCarStatusFilter')
+
+// 검색창 이벤트
+usedCarSearchInput.addEventListener('input', renderUsedCars)
+usedCarSearchInput.addEventListener('search', renderUsedCars) // Safari 대응
+usedCarSearchInput.addEventListener('change', renderUsedCars) // 포커스 이동 시 재렌더링
+
+// 상태 필터
+usedCarStatusFilter.addEventListener('change', renderUsedCars)
 
 const usedCarCountText = document.querySelector('#usedCarCountText')
 const usedCarEmptyMessage = document.querySelector('#usedCarEmptyMessage')
