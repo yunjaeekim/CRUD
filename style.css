@@ -1,66 +1,98 @@
+/* =========================================================
+   Base
+   ========================================================= */
+
 * {
   box-sizing: border-box;
 }
 
+html {
+  min-width: 320px;
+}
+
 body {
+  min-height: 100vh;
   margin: 0;
   font-family: Arial, "맑은 고딕", sans-serif;
   color: #222;
   background-color: #f3f4f6;
 }
- 
-.page-header {
+
+/* 화면에는 표시하지 않지만 보조 기술에는 요소의 의미를 제공한다. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================================================
+   Page Header
+   ========================================================= */
+
+.used-car-page-header {
   padding: 32px 20px;
   text-align: center;
-  color: white;
+  color: #fff;
   background-color: #1f2937;
 }
 
-.page-header h1 {
+.used-car-page-header__title {
   margin: 0 0 8px;
 }
 
-.page-header p {
+.used-car-page-header__description {
   margin: 0;
   color: #d1d5db;
 }
 
-.container {
+/* =========================================================
+   Main Layout and Panels
+   ========================================================= */
+
+/* 충분한 화면 폭에서는 입력 폼과 차량 목록을 2열로 배치한다. */
+.used-car-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  gap: 24px;
   width: min(1100px, 92%);
   margin: 32px auto;
-
-  /* 입력 영역과 목록 영역을 2열로 배치한다. */
-  /* TODO: [입력 영역 / 목록 영역 2열 배치 ] 수강생 구현 #1 */
-
 }
 
-.form-card,
-.list-card {
+.used-car-panel {
+  min-width: 0;
   padding: 24px;
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
-.form-card h2,
-.list-card h2 {
+.used-car-panel__title {
   margin: 0 0 18px;
 }
 
-.car-form {
+/* =========================================================
+   Form Controls
+   ========================================================= */
+
+.used-car-form {
   display: grid;
   gap: 14px;
 }
 
-.form-row {
-  /* TODO: [form -row] 수강생 구현 #2 */
- 
+.used-car-form__field {
+  display: grid;
+  gap: 7px;
 }
 
-.form-row label {
-  /* TODO: [form-row lable] 수강생 구현 #3 */
-  
+.used-car-form__field label {
+  font-weight: 700;
 }
 
 input,
@@ -72,9 +104,23 @@ button {
 input,
 select {
   width: 100%;
+  min-height: 44px;
   padding: 11px 12px;
+  color: #222;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
+  background-color: #fff;
+}
+
+/* Safari를 포함한 브라우저에서 선택 요소의 높이와 화살표를 일관되게 표시한다. */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='m6 8 4 4 4-4' stroke='%23374151' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
 }
 
 input:focus,
@@ -83,70 +129,111 @@ select:focus {
   border-color: #2563eb;
 }
 
-.button-area {
-  /* TODO: [button-area] 수강생 구현 #4 */
-  
+.used-car-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-button {
+/* =========================================================
+   Buttons
+   ========================================================= */
+
+.used-car-button {
+  min-height: 40px;
   padding: 10px 14px;
-  border: none;
+  border: 0;
   border-radius: 10px;
   cursor: pointer;
 }
 
-#submitButton {
-  color: white;
+.used-car-button--primary {
+  color: #fff;
   background-color: #2563eb;
 }
 
-#cancelEditButton {
+.used-car-button--secondary,
+.used-car-button--edit {
+  color: #111827;
   background-color: #e5e7eb;
 }
 
-.list-header {
+.used-car-button--delete {
+  color: #fff;
+  background-color: #ef4444;
+}
+
+/* =========================================================
+   Vehicle List
+   ========================================================= */
+
+.used-car-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
 }
 
-#countText {
+.used-car-list-header__count {
   margin: 0;
   color: #666;
+  white-space: nowrap;
 }
 
-.search-area {
-  /* TODO: [search-area] 수강생 구현 #5 */
- 
+.used-car-search {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160px;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
-.car-list {
-  /* TODO: [car-list] 수강생 구현 #6 */
-  
+.used-car-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
-.car-card {
-  /* TODO: [car-card] 수강생 구현 #7 */
-  
+.used-car-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background-color: #fff;
 }
 
-.car-card h3 {
+.used-car-card__title {
   margin: 0 0 10px;
 }
 
-.car-card p {
+.used-car-card__detail {
   margin: 6px 0;
   color: #555;
+  overflow-wrap: anywhere;
 }
 
-.price {
+.used-car-card__price {
+  margin: 6px 0;
   font-size: 20px;
   font-weight: 700;
   color: #111827;
 }
 
-.status-badge {
+.used-car-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.used-car-card__actions .used-car-button {
+  flex: 1;
+  min-width: 0;
+}
+
+/* =========================================================
+   Status Badge
+   ========================================================= */
+
+.used-car-status-badge {
   display: inline-block;
   margin-top: 8px;
   padding: 5px 10px;
@@ -154,37 +241,22 @@ button {
   font-size: 14px;
 }
 
-.status-badge.selling {
+.used-car-status-badge--selling {
   color: #065f46;
   background-color: #d1fae5;
 }
 
-.status-badge.reserved {
+.used-car-status-badge--reserved {
   color: #92400e;
   background-color: #fef3c7;
 }
 
-.status-badge.sold {
+.used-car-status-badge--sold {
   color: #991b1b;
   background-color: #fee2e2;
 }
 
-.card-actions {
-  /* TODO: [car-actions] 수강생 구현 #8 */
-  
-}
-
-.card-actions button {
-  /* TODO: [card-actions button] 수강생 구현 #9 */
- 
-}
-
-.card-actions .delete-button {
-  color: white;
-  background-color: #ef4444;
-}
-
-.empty-message {
+.used-car-empty-message {
   padding: 32px;
   text-align: center;
   color: #6b7280;
@@ -192,8 +264,41 @@ button {
   border-radius: 12px;
 }
 
-/* 화면이 좁아지면 1열로 변경한다. */
+/* =========================================================
+   Responsive Layout
+   ========================================================= */
+
+/* 메인 2열을 유지할 공간이 부족하면 폼과 목록을 세로로 배치한다. */
+@media (max-width: 1024px) {
+  .used-car-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 모바일 화면에서는 검색 조건과 차량 카드도 1열로 전환한다. */
 @media (max-width: 800px) {
-  /* TODO: [1열 변경] 수강생 구현 #10 */
- 
+  .used-car-search,
+  .used-car-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .used-car-list-header {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .used-car-layout {
+    width: min(100% - 24px, 1100px);
+    margin: 20px auto;
+  }
+
+  .used-car-panel {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .used-car-list-header {
+    flex-direction: column;
+  }
 }
