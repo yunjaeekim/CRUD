@@ -3,7 +3,12 @@
   box-sizing: border-box;
 }
 
+html {
+  min-width: 320px;
+}
+
 body {
+  min-height: 100vh;
   margin: 0;
   font-family: Arial, "맑은 고딕", sans-serif;
   color: #222;
@@ -50,6 +55,7 @@ body {
 }
 
 .used-car-panel {
+  min-width: 0;
   padding: 24px;
   background-color: #fff;
   border: 1px solid #e5e7eb;
@@ -84,10 +90,23 @@ button {
 input,
 select {
   width: 100%;
+  min-height: 44px;
   padding: 11px 12px;
+  color: #222;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
   background-color: #fff;
+}
+
+/* Safari를 포함한 브라우저에서 select 높이와 화살표 위치를 동일하게 유지한다. */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='m6 8 4 4 4-4' stroke='%23374151' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
 }
 
 input:focus,
@@ -103,6 +122,7 @@ select:focus {
 }
 
 .used-car-button {
+  min-height: 40px;
   padding: 10px 14px;
   border: 0;
   border-radius: 10px;
@@ -146,6 +166,7 @@ select:focus {
 }
 
 .used-car-card {
+  min-width: 0;
   padding: 16px;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
@@ -159,6 +180,7 @@ select:focus {
 .used-car-card__detail {
   margin: 6px 0;
   color: #555;
+  overflow-wrap: anywhere;
 }
 
 .used-car-card__price {
@@ -199,6 +221,7 @@ select:focus {
 
 .used-car-card__actions .used-car-button {
   flex: 1;
+  min-width: 0;
 }
 
 .used-car-button--edit {
@@ -219,9 +242,15 @@ select:focus {
   border-radius: 12px;
 }
 
-/* 화면 폭이 좁아지면 모든 주요 영역을 1열로 전환한다. */
+/* 메인 2열을 유지할 공간이 부족하면 폼과 목록을 세로로 배치한다. */
+@media (max-width: 1024px) {
+  .used-car-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 모바일 화면에서는 검색 영역과 차량 카드도 1열로 전환한다. */
 @media (max-width: 800px) {
-  .used-car-layout,
   .used-car-search,
   .used-car-grid {
     grid-template-columns: 1fr;
@@ -229,5 +258,21 @@ select:focus {
 
   .used-car-list-header {
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .used-car-layout {
+    width: min(100% - 24px, 1100px);
+    margin: 20px auto;
+  }
+
+  .used-car-panel {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .used-car-list-header {
+    flex-direction: column;
   }
 }
